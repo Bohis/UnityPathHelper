@@ -11,9 +11,12 @@ public class Player : MonoBehaviour {
 
 	private bool isCanJump = false;
 
+	private LookAround lookAround;
+
 	private void Awake() {
 		inputs = new Controls();
 		rb = GetComponent<Rigidbody2D>();
+		lookAround = GetComponent<LookAround>();
 	}
 
 	private void OnEnable() {
@@ -26,9 +29,14 @@ public class Player : MonoBehaviour {
 
 	private void Start() {
 		inputs.Player.Jump.performed += Jump_performed;
+        inputs.Player.PickUp.performed += PickUp_performed;
 	}
 
-	private void Jump_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj) {
+    private void PickUp_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj) {
+		lookAround.PickUp();
+    }
+
+    private void Jump_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj) {
 		if (isCanJump) rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
 	}
 	private void Move() {

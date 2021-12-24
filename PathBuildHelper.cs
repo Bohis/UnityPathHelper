@@ -295,7 +295,7 @@ public class PathBuildHelper : MonoBehaviour {
 		if (isDraw) Debug.DrawLine(transform.position, transform.position + vectorWay, colorDraw);
 
 		// Проверка необходимости поворота
-		if (Mathf.Abs(sideWay.x) > flipSide && isGround) {
+		if (Mathf.Abs(sideWay.x) > flipSide && (isGround || !isCanJump)) {
 			Flip(sideWay.x);
 		}
 
